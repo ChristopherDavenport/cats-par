@@ -3,19 +3,19 @@ package cats.temp.par
 import cats.Parallel
 
 trait Par[F[_]]{
-  type P[A]
-  implicit def parallel: Parallel[F, P]
+  type ParAux[A]
+  def parallel: Parallel[F, ParAux]
 }
 
 object Par {
   def apply[F[_]](implicit ev: Par[F]) = ev
 
-  type Aux[F[_], G[_]] = Par[F]{type P[A] = G[A]}
+  type Aux[F[_], G[_]] = Par[F]{type ParAux[A] = G[A]}
 
-  implicit def fromParallel[F[_], G[_]](implicit Parallel: Parallel[F, G]): Par.Aux[F, G] = 
+  implicit def fromParallel[F[_], G[_]](implicit P: Parallel[F, G]): Par.Aux[F, G] = 
     new Par[F]{
-      type P[A] = G[A]
-      implicit def parallel: Parallel[F, P] = Parallel
+      type ParAux[A] = G[A]
+      def parallel: Parallel[F, ParAux] = P
     }
   
 }
