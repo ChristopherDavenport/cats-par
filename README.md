@@ -30,18 +30,11 @@ import cats.temp.par._
 
 // Without This You Require a second type parameter and to continue, this second
 // param up the entire call stack
-def without[F[_]: Monad, G[_], A, C, D](
-  as: List[A], 
-  f: A => Kleisli[F, C, D]
-)(implicit P: Parallel[F, G]): Kleisli[F, C, List[D]] = {
+def withoutPar[F[_]: Monad, G[_], A, C, D](as: List[A], f: A => Kleisli[F, C, D])
+                                        (implicit P: Parallel[F, G]): Kleisli[F, C, List[D]] =
   as.parTraverse(f)
-}
 
 // With This It Is Just Another Contstraint on your Abstract F
-def with[F[_]: Monad : Par, A, C, D](
-  as: List[A],
-  f: A => Kleisli[F, C, D]
-): Kleisli[F, C, List[D]] = {
+def withPar[F[_]: Monad : Par, A, C, D](as: List[A], f: A => Kleisli[F, C, D]): Kleisli[F, C, List[D]] =
   as.parTraverse(f)
-}
 ```
