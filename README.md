@@ -25,6 +25,7 @@ libraryDependencies += "io.chrisdavenport" %% "cats-par" % "<version>"
 
 ```scala
 import cats._
+import cats.implicits._
 import cats.data._
 import cats.temp.par._
 
