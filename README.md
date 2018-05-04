@@ -18,7 +18,7 @@ To use cats-par in an existing SBT project with Scala 2.11 or a later version, a
 `build.sbt`:
 
 ```scala
-libraryDependencies += "io.chrisdavenport" %% "testcontainers-specs2" % "<version>"
+libraryDependencies += "io.chrisdavenport" %% "cats-par" % "<version>"
 ```
 
 ## Examples
