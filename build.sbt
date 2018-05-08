@@ -7,7 +7,7 @@ lazy val root = project.in(file(""))
   .settings(commonSettings, releaseSettings)
 
 lazy val core = crossProject.in(file("par"))
-    .settings(commonSettings, releaseSettings)
+    .settings(commonSettings, releaseSettings, mimaSettings)
     .settings(
       name := "cats-par"
     )
@@ -45,6 +45,7 @@ lazy val releaseSettings = {
       inquireVersions,
       runClean,
       runTest,
+      releaseStepCommandAndRemaining("+mimaReportBinaryIssues"),
       setReleaseVersion,
       commitReleaseVersion,
       tagRelease,
@@ -101,6 +102,31 @@ lazy val releaseSettings = {
     }
   )
 }
+
+lazy val mimaSettings = {
+  import sbtrelease.Version
+  def mimaVersion(version: String) = {
+    Version(version) match {
+      case Some(Version(major, Seq(minor, patch), _)) if patch.toInt > 0 =>
+        Some(s"${major}.${minor}.${patch.toInt - 1}")
+      case _ =>
+        None
+    }
+  }
+
+  Seq(
+    mimaFailOnProblem := mimaVersion(version.value).isDefined,
+    mimaPreviousArtifacts := (mimaVersion(version.value) map {
+      organization.value % s"${moduleName.value}_${scalaBinaryVersion.value}" % _
+    }).toSet,
+    mimaBinaryIssueFilters ++= {
+      import com.typesafe.tools.mima.core._
+      import com.typesafe.tools.mima.core.ProblemFilters._
+      Seq()
+    }
+  )
+}
+
 
 lazy val noPublishSettings = {
   import com.typesafe.sbt.pgp.PgpKeys.publishSigned
