@@ -1,7 +1,8 @@
 lazy val root = project.in(file(""))
   .aggregate(
     coreJVM,
-    coreJS
+    coreJS,
+    docs
   )
   .settings(noPublishSettings)
   .settings(commonSettings, releaseSettings)
@@ -11,6 +12,18 @@ lazy val core = crossProject.in(file("par"))
     .settings(
       name := "cats-par"
     )
+
+lazy val docs = project.in(file("docs"))
+  .settings(noPublishSettings)
+  .settings(commonSettings, micrositeSettings)
+  .enablePlugins(MicrositesPlugin)
+  .enablePlugins(TutPlugin)
+  .dependsOn(coreJVM)
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.typelevel"         %% "cats-effect"                    % "0.10.1"
+    )
+  )
 
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
@@ -102,6 +115,41 @@ lazy val releaseSettings = {
     }
   )
 }
+
+lazy val micrositeSettings = Seq(
+  micrositeName := "cats-par",
+  micrositeDescription := "Single Type Parameter Parallel Instances",
+  micrositeAuthor := "Christopher Davenport",
+  micrositeGithubOwner := "ChristopherDavenport",
+  micrositeGithubRepo := "cats-par",
+  micrositeBaseUrl := "/cats-par",
+  micrositeDocumentationUrl := "https://christopherdavenport.github.io/cats-par",
+  micrositeFooterText := None,
+  micrositeHighlightTheme := "atom-one-light",
+  micrositePalette := Map(
+    "brand-primary" -> "#3e5b95",
+    "brand-secondary" -> "#294066",
+    "brand-tertiary" -> "#2d5799",
+    "gray-dark" -> "#49494B",
+    "gray" -> "#7B7B7E",
+    "gray-light" -> "#E5E5E6",
+    "gray-lighter" -> "#F4F3F4",
+    "white-color" -> "#FFFFFF"
+  ),
+  fork in tut := true,
+  scalacOptions in Tut --= Seq(
+    "-Xfatal-warnings",
+    "-Ywarn-unused-import",
+    "-Ywarn-numeric-widen",
+    "-Ywarn-dead-code",
+    "-Ywarn-unused:imports",
+    "-Xlint:-missing-interpolator,_"
+  ),
+  libraryDependencies += "com.47deg" %% "github4s" % "0.18.4",
+  micrositePushSiteWith := GitHub4s,
+  micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
+)
+
 
 lazy val mimaSettings = {
   import sbtrelease.Version
