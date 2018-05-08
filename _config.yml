@@ -1,0 +1,11 @@
+name: cats-par
+baseurl: /cats-par
+description: Single Type Parameter Parallel Instances
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.0.4-SNAPSHOT
+org: io.chrisdavenport
+markdown: kramdown
