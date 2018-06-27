@@ -14,4 +14,17 @@ object CompileCheck {
   def listTraverse[F[_]: Par: Monad, A](as: List[F[A]]) = {
     as.parSequence
   }
+
+  def withF[F[_]: NonEmptyPar, A, B](as: NonEmptyList[A], f: A => F[B]) = {
+    Parallel.parNonEmptyTraverse(as)(f)
+  }
+
+  def nonEmptyListNonEmptyTraverse[F[_]: NonEmptyPar, A](as: NonEmptyList[F[A]]) = {
+    Parallel.parNonEmptySequence(as)
+  }
+
+  def doParTupled[F[_]: NonEmptyPar, A, B](fa: F[A], fb: F[B]): F[(A, B)] = {
+    (fa, fb).parTupled
+  }
+
 }
