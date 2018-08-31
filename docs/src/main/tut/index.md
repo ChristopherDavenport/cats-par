@@ -45,7 +45,7 @@ def withoutPar[F[_]: Monad, G[_], A, C, D](as: List[A], f: A => Kleisli[F, C, D]
 ```
 
 ```tut
-// With This It Is Just Another Contstraint on your Abstract F
+// With This It Is Just Another Constraint on your Abstract F
 def withPar[F[_]: Monad : Par, A, C, D](as: List[A], f: A => Kleisli[F, C, D]): Kleisli[F, C, List[D]] =
   as.parTraverse(f)
 
