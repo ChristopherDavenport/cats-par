@@ -21,15 +21,15 @@ lazy val docs = project.in(file("docs"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"                    % "0.10.1"
+      "org.typelevel"         %% "cats-effect"                    % "1.0.0"
     )
   )
 
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
 
-val catsV = "1.1.0"
-val specs2V = "4.2.0"
+val catsV = "1.3.1"
+val specs2V = "4.3.3"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"

@@ -52,5 +52,7 @@ def withPar[F[_]: Monad : Par, A, C, D](as: List[A], f: A => Kleisli[F, C, D]): 
 // Also Works For Instances Not in Core
 import cats.effect.IO
 
+implicit val contextShift = IO.contextShift(scala.concurrent.ExecutionContext.global)
+
 (IO(1), IO(2)).parMapN(_ + _)
 ```
