@@ -29,7 +29,7 @@ lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
 
 val catsV = "1.4.0"
-val specs2V = "4.3.3"
+val specs2V = "4.3.4"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
