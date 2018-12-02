@@ -21,7 +21,7 @@ lazy val docs = project.in(file("docs"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"                    % "1.0.0"
+      "org.typelevel"         %% "cats-effect"                    % "1.1.0"
     )
   )
 
