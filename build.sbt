@@ -28,7 +28,7 @@ lazy val docs = project.in(file("docs"))
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
 
-val catsV = "1.5.0"
+val catsV = "1.6.0"
 val specs2V = "4.4.1"
 
 lazy val contributors = Seq(
