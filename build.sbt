@@ -1,11 +1,11 @@
 lazy val root = project.in(file(""))
-  .aggregate(
-    coreJVM,
-    coreJS,
-    docs
-  )
   .settings(noPublishSettings)
   .settings(commonSettings, releaseSettings)
+  .aggregate(
+    coreJVM,
+    coreJS
+  )
+  
 
 lazy val core = crossProject.in(file("par"))
     .settings(commonSettings, releaseSettings, mimaSettings)
@@ -38,8 +38,8 @@ lazy val contributors = Seq(
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
-  scalaVersion := "2.12.6",
-  crossScalaVersions := Seq(scalaVersion.value, "2.11.12"),
+  scalaVersion := "2.12.8",
+  crossScalaVersions := Seq("2.13.0-M5", scalaVersion.value, "2.11.12"),
 
   addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.9" cross CrossVersion.binary),
 
