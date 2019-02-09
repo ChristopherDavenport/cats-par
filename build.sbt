@@ -58,7 +58,6 @@ lazy val releaseSettings = {
       inquireVersions,
       runClean,
       runTest,
-      releaseStepCommandAndRemaining("+mimaReportBinaryIssues"),
       setReleaseVersion,
       commitReleaseVersion,
       tagRelease,
