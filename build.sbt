@@ -135,6 +135,7 @@ lazy val micrositeSettings = Seq(
     "gray-lighter" -> "#F4F3F4",
     "white-color" -> "#FFFFFF"
   ),
+  scalaVersion := "2.12.8",
   fork in tut := true,
   scalacOptions in Tut --= Seq(
     "-Xfatal-warnings",
