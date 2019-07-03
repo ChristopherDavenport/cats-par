@@ -10,7 +10,7 @@ lazy val root = project.in(file(""))
   
 
 lazy val core =  crossProject(JSPlatform, JVMPlatform)
-  .crossType(CrossType.Pure)
+  .crossType(CrossType.Full)
   .in(file("par"))
   .settings(commonSettings, releaseSettings, mimaSettings)
   .settings(
