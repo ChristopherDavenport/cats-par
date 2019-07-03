@@ -1,3 +1,5 @@
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+
 lazy val root = project.in(file(""))
   .settings(noPublishSettings)
   .settings(commonSettings, releaseSettings)
@@ -7,11 +9,13 @@ lazy val root = project.in(file(""))
   )
   
 
-lazy val core = crossProject.in(file("par"))
-    .settings(commonSettings, releaseSettings, mimaSettings)
-    .settings(
-      name := "cats-par"
-    )
+lazy val core =  crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Full)
+  .in(file("par"))
+  .settings(commonSettings, releaseSettings, mimaSettings)
+  .settings(
+    name := "cats-par"
+  )
 
 lazy val docs = project.in(file("docs"))
   .settings(noPublishSettings)
@@ -21,15 +25,15 @@ lazy val docs = project.in(file("docs"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"                    % "1.2.0"
+      "org.typelevel"         %% "cats-effect"                    % "2.0.0-M4"
     )
   )
 
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
 
-val catsV = "1.6.0"
-val specs2V = "4.5.1"
+val catsV = "2.0.0-M4"
+val specs2V = "4.6.0"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
@@ -39,9 +43,9 @@ lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
   scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.13.0-M5", scalaVersion.value, "2.11.12"),
+  crossScalaVersions := Seq("2.13.0", scalaVersion.value, "2.11.12"),
 
-  addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.9" cross CrossVersion.binary),
+  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
 
   libraryDependencies ++= Seq(
     "org.typelevel"               %%% "cats-core"                  % catsV,
