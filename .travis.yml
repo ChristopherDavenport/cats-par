@@ -17,7 +17,7 @@ cache:
     - $HOME/.sbt
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 before_install:
   - export PATH=${PATH}:./vendor/bundle
