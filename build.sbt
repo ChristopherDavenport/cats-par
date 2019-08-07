@@ -8,7 +8,10 @@ lazy val root = project.in(file(""))
     coreJVM,
     coreJS
   )
-  
+
+val catsV = "2.0.0-RC1"
+val catsEffectV = "2.0.0-RC1" // Docs Only
+val specs2V = "4.7.0"
 
 lazy val core =  crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Full)
@@ -26,15 +29,13 @@ lazy val docs = project.in(file("docs"))
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"                    % "2.0.0-M4"
+      "org.typelevel"         %% "cats-effect"                    % catsEffectV
     )
   )
 
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
 
-val catsV = "2.0.0-M4"
-val specs2V = "4.7.0"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
@@ -43,8 +44,8 @@ lazy val contributors = Seq(
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.13.0", scalaVersion.value, "2.11.12"),
+  scalaVersion := "2.13.0",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.9"),
 
   addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
 
