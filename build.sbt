@@ -9,7 +9,7 @@ lazy val root = project.in(file(""))
     coreJS
   )
 
-val catsV = "2.0.0-RC1"
+val catsV = "2.0.0-RC2"
 val catsEffectV = "2.0.0-RC1" // Docs Only
 val specs2V = "4.7.0"
 
@@ -46,6 +46,7 @@ lazy val commonSettings = Seq(
 
   scalaVersion := "2.13.0",
   crossScalaVersions := Seq(scalaVersion.value, "2.12.9"),
+  scalacOptions -= "-Xfatal-warnings",
 
   addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
 
