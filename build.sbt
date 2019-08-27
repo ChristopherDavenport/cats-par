@@ -9,8 +9,8 @@ lazy val root = project.in(file(""))
     coreJS
   )
 
-val catsV = "2.0.0-RC1"
-val catsEffectV = "2.0.0-RC1" // Docs Only
+val catsV = "2.0.0-RC2"
+val catsEffectV = "2.0.0-RC2" // Docs Only
 val specs2V = "4.7.0"
 
 lazy val core =  crossProject(JSPlatform, JVMPlatform)
