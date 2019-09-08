@@ -9,7 +9,7 @@ lazy val root = project.in(file(""))
     coreJS
   )
 
-val catsV = "2.0.0-RC2"
+val catsV = "2.0.0-RC3"
 val catsEffectV = "2.0.0-RC1" // Docs Only
 val specs2V = "4.7.0"
 
