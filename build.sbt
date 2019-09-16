@@ -11,7 +11,7 @@ lazy val root = project.in(file(""))
 
 val catsV = "2.0.0-RC2"
 val catsEffectV = "2.0.0-RC1" // Docs Only
-val specs2V = "4.7.0"
+val specs2V = "4.7.1"
 
 lazy val core =  crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Full)
